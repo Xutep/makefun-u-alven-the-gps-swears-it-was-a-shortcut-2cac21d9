@@ -24,6 +24,9 @@ def main() -> None:
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(line + "\n")
+    # Round-trip check: what landed on disk must be exactly the entry.
+    with open("/output/entry.txt", "r", encoding="utf-8") as f:
+        assert f.read() == line + "\n", "entry round-trip mismatch"
 
 
 if __name__ == "__main__":
